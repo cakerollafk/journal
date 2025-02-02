@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -196,7 +194,7 @@
             <div class="image-upload">
                 <input type="file" id="imageUpload" accept="image/*">
             </div>
-            <button onclick="saveEntry()">Save Entry</button>
+            <button id="saveButton" onclick="saveEntry()">Save Entry</button>
         </div>
         <div class="entries" id="entriesList">
             <h1>Cakeroll's Journal</h1>
@@ -233,6 +231,8 @@
                 alert("Please write something before saving.");
                 return;
             }
+            let saveButton = document.getElementById("saveButton");
+            saveButton.disabled = true;  // Disable save button to prevent multiple clicks
             let entries = JSON.parse(localStorage.getItem("journalEntries")) || [];
             let timestamp = new Date().toLocaleString();
             let imageUrl = uploadedImage ? uploadedImage : null;
@@ -243,6 +243,7 @@
             uploadedImage = null;
             displayEntries();
             alert("Journal entry saved!");
+            saveButton.disabled = false;  // Re-enable save button
         }
 
         function displayEntries() {
